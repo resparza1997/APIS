@@ -1,0 +1,122 @@
+<html>
+<head>
+    <title>Clientes</title>
+</head>
+    
+<body>
+    <p>Esta pagina es de clientes</p>
+    <span><a href="{% url 'logout' %}">logout</a></span>
+    {% if rol == "Administrador" %}
+        <span><a href="{% url 'homeAdmin' %}">home</a></span>
+    {% else %}
+        <span><a href="{% url 'home' %}">home</a></span>
+    {% endif %}
+    <span><a href="{% url 'clientes' %}">clientes</a></span>
+    <span><a href="{% url 'provedores' %}">provedores</a></span>
+    {% if rol == "Administrador" %}
+    <span><a href="{% url 'ganancias' %}">Ganancias</a></span>
+    {% endif %}
+    <form action="" method="GET">
+        <label for="">Producto</label>
+        <select id="producto0" oninput="costoTotal('cantidad0','producto0','cantidadTotal0','nomProd0')">
+            {% for i in productos %}
+                <option value="{{i.PrecioCliente}}~~{{i.id}}">{{i.Producto}}</option>
+            {% endfor %}
+        </select>
+
+        <input id="nomProd0" name="nomProd0" type="hidden"/>
+        
+        <label for="">Cantidad</label>
+        <input type="text" id="cantidad0" name="cant0" oninput="costoTotal('cantidad0','producto0','cantidadTotal0','nomProd0')">
+
+        <label for="">CantidadTotal</label>
+        <input type="text" id="cantidadTotal0" name="cantTotal0">
+        
+        <div id="newElementId"></div>
+        
+        <div id="dynamicCheck">
+            <input type="button" value="Agregar Producto" onclick="createNewElement();"/>
+            <input type="button" value="Borrar Producto" onclick="deleteElement();"/>
+        </div>
+        <input id="cantProductos" name="cantProd" type="hidden"/>
+        <input type="submit" value="Fin Transaccion">
+    </form>
+
+    <p id="valorTotal"></p>
+
+        <script>
+            var mensajeTransaccion = "{{mensaje}}"
+            if (mensajeTransaccion != ""){
+                alert(mensajeTransaccion)
+            }
+
+            var contClienteTransaccion = 1
+
+            function valorTotalTransaccion(){
+                var costoTotalTransaccion = 0
+                for (var i = 0; i<contClienteTransaccion;i++){
+                    costoTotalTransaccion = costoTotalTransaccion + parseInt(document.getElementById("cantidadTotal"+i).value)
+                }
+
+                document.getElementById("valorTotal").innerHTML = costoTotalTransaccion;
+            }
+
+
+            function costoTotal(cantidad, producto, cantidadTotal, nomProd){
+                var cant = document.getElementById(cantidad).value;
+                var prod = document.getElementById(producto).value;
+                const [costo, nombre] = prod.split('~~')
+                var cantTotal = cant * costo;
+
+                document.getElementById(cantidadTotal).value = cantTotal;
+                document.getElementById(nomProd).value = nombre
+                valorTotalTransaccion();
+                cantidadProductos()
+            }
+
+            function createNewElement() {
+                var html = `<div id="`+"newElement"+contClienteTransaccion+`">
+                    <label for="">Producto</label>
+                    <select id=`+`"`+"producto"+contClienteTransaccion+`" oninput="costoTotal('`+"cantidad"+contClienteTransaccion+`','`+"producto"+contClienteTransaccion+`','`+"cantidadTotal"+contClienteTransaccion+`','`+"nomProd"+contClienteTransaccion+`')">
+                        {% for i in productos %}
+                            <option value="{{i.PrecioCliente}}~~{{i.id}}">{{i.Producto}}</option>
+                        {% endfor %}
+                    </select>
+                    
+                    <input id="nomProd`+contClienteTransaccion+`" name="nomProd`+contClienteTransaccion+`" type="hidden"/>
+
+                    <label for="">Cantidad</label>
+                    <input type="text" id=`+`"`+"cantidad"+contClienteTransaccion+`" name="cant`+contClienteTransaccion+`" oninput="costoTotal('`+"cantidad"+contClienteTransaccion+`','`+"producto"+contClienteTransaccion+`','`+"cantidadTotal"+contClienteTransaccion+`','`+"nomProd"+contClienteTransaccion+`')">
+
+                    <label for="">CantidadTotal</label>
+                    <input type="text" id=`+`"`+"cantidadTotal"+contClienteTransaccion+`" name="cantTotal`+contClienteTransaccion+`"></div>`; 
+
+                var txtNewInputBox = document.createElement('div');
+                txtNewInputBox.innerHTML = html;
+                document.getElementById("newElementId").appendChild(txtNewInputBox);
+                contClienteTransaccion += 1
+            }
+
+            function deleteElement() {
+                if (contClienteTransaccion <= 1){
+                    alert("No puedes borrar mas productos")
+                }
+                else {
+                    document.getElementById("newElement"+(contClienteTransaccion-1)).remove();
+                    contClienteTransaccion -= 1
+                }
+                valorTotalTransaccion();
+            }
+
+            function cantidadProductos(){
+                document.getElementById("cantProductos").value = contClienteTransaccion;
+            }
+
+            function nombreProducto(){
+                alert("Entro")
+            }
+
+        </script>
+</body>
+
+</html>

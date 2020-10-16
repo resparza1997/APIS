@@ -1,0 +1,17 @@
+<html>
+<head>
+    <title>Home</title>
+</head>
+
+<body>
+    Pagina de HOME
+    <nav>
+        <span>Hola, {{request.user}}</span>
+        <span><a href="{% url 'logout' %}">logout</a></span>
+        <span><a href="{% url 'home' %}">home</a></span>
+        <span><a href="{% url 'clientes' %}">clientes</a></span>
+        <span><a href="{% url 'provedores' %}">provedores</a></span>
+    </nav>
+</body>
+
+</html>

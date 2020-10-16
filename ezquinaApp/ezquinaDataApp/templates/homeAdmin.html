@@ -1,0 +1,18 @@
+<html>
+<head>
+    <title>Home</title>
+</head>
+
+<body>
+    Pagina de HOME de ADMINISTRADOR
+    <nav>
+        <span>Hola, {{request.user}}</span>
+        <span><a href="{% url 'logout' %}">logout</a></span>
+        <span><a href="{% url 'homeAdmin' %}">home</a></span>
+        <span><a href="{% url 'clientes' %}">clientes</a></span>
+        <span><a href="{% url 'provedores' %}">provedores</a></span>
+        <span><a href="{% url 'ganancias' %}">Ganancias</a></span>
+    </nav>
+</body>
+
+</html>

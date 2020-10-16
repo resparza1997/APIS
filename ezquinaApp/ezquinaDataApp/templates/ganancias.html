@@ -1,0 +1,61 @@
+<html>
+<head>
+    <title>Inventario</title>
+</head>
+
+<body>
+        <p>Esta pagina es de ganancias</p>
+        <span><a href="{% url 'logout' %}">logout</a></span>
+        <span><a href="{% url 'homeAdmin' %}">home</a></span>
+        <span><a href="{% url 'clientes' %}">clientes</a></span>
+        <span><a href="{% url 'provedores' %}">provedores</a></span>
+        <span><a href="{% url 'ganancias' %}">Ganancias</a></span>
+
+    <form action="" method="GET">
+        <label for="">Año</label>
+        <select name="year" id="selectYear" value="{{year}}">
+            <option value="2020">2020</option>
+            <option value="2019">2019</option>
+        </select>
+
+        <label for="">Mes</label>
+        <select name="mes" id="selectMes">
+            <option value="1">Enero</option>
+            <option value="2">Febrero</option>
+            <option value="3">Marzo</option>
+            <option value="4">Abril</option>
+            <option value="5">Mayo</option>
+            <option value="6">Junio</option>
+            <option value="7">Julio</option>
+            <option value="8">Agosto</option>
+            <option value="9">Septiembre</option>
+            <option value="10">Octubre</option>
+            <option value="11">Noviembre</option>
+            <option value="12">Diciembre</option>
+        </select>
+
+        <input type="submit" value="Ver Flujo">
+    </form>
+    <h3>Ventas</h3>
+            {% for i in ventas %}
+                <li>{{i.Fecha}}</li>
+                <li>{{i.CostoTotal}}</li>
+            {% endfor %}
+    <h3>Total de Ventas = {{totalVentas}}</h3>
+    <h3>Perdidas</h3>
+        {% for i in perdidas %}
+            <li>{{i.Fecha}}</li>
+            <li>{{i.CostoTotal}}</li>
+        {% endfor %}
+        <h3>Total de Perdidas = {{totalPerdidas}}</h3>
+
+    <script>
+        var mes = "{{mes}}"
+        document.getElementById("selectMes").selectedIndex = mes-1;
+        var year = "{{year}}"
+        document.getElementById("selectYear").selectedIndex = year;
+    </script>
+
+</body>
+
+</html>
