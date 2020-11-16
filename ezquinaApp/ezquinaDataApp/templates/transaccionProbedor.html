@@ -3,8 +3,59 @@
     <title>Provedores</title>
 </head>
 
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
 <body>
-    <p>Transacciones de provedores</p>
+<div class="container-fluid">
+        <nav class="navbar navbar-inverse">
+                <div class="container">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-3">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand">Hola, {{request.user}}</a>
+                    </div>
+                
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="navbar-collapse-3">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>{% if rol == "Administrador" %}
+                                <a href="{% url 'homeAdmin' %}">home</a>
+                            {% else %}
+                                <a href="{% url 'home' %}">home</a>
+                            {% endif %}
+                        </li>
+                        <li><a href="{% url 'clientes' %}">clientes</a></li>
+                        <li><a href="{% url 'provedores' %}">provedores</a></li>
+                        <li>{% if rol == "Administrador" %}
+                                <a href="{% url 'ganancias' %}">Ganancias</a>
+                                {% endif %}</li>
+                        <li>
+                        <a class="btn btn-default btn-outline btn-circle"  data-toggle="collapse" href="{% url 'logout' %}" aria-expanded="false" aria-controls="nav-collapse3">logout</a>
+                        </li>
+                    </ul>
+                    <div class="collapse nav navbar-nav nav-collapse" id="nav-collapse3">
+                        <form class="navbar-form navbar-right" role="logout">
+                        <a href="{% url 'logout' %}">logout</a>
+                        </form>
+                    </div>
+                    </div><!-- /.navbar-collapse -->
+                </div><!-- /.container -->
+                </nav><!-- /.navbar -->
+</div>
+
+<div class="container-fluid">
+    <h1>Transacciones de Provedores</h1>
+</div>
+
+
+<!--
     <span><a href="{% url 'logout' %}">logout</a></span>
     {% if rol == "Administrador" %}
         <span><a href="{% url 'homeAdmin' %}">home</a></span>
@@ -16,41 +67,88 @@
     {% if rol == "Administrador" %}
     <span><a href="{% url 'ganancias' %}">Ganancias</a></span>
     {% endif %}
+-->
+<div class="container">
+    <div class="row">
+        <form class="col-md-12" action="" method="GET">
+            <div class="form-group">
+                <div class="col-md-10">
 
-    <form action="" method="GET">
-            <label for="">Provedor</label>
-            <select id="provedor0" name="prov0">
-                {% for i in provedores %}
-                    <option value="{{i.id}}">{{i.Probedor}}</option>
-                {% endfor %}
-            </select>
+                    <div class="col-md-3">
+                        <div class="col-md-4"><label style="transform: translate(0%, 50%);" for="">Provedor</label></div>
+                        <div class="col-md-8">
+                            <select class="form-control" id="provedor0" name="prov0">
+                                {% for i in provedores %}
+                                    <option value="{{i.id}}">{{i.Probedor}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
 
-            <label for="">Producto</label>
-            <select id="producto0" oninput="costoTotal('cantidad0','producto0','cantidadTotal0','nomProd0')">
-                {% for i in productos %}
-                    <option value="{{i.PrecioProvedor}}~~{{i.id}}">{{i.Producto}}</option>
-                {% endfor %}
-            </select>
-    
-            <input id="nomProd0" name="nomProd0" type="hidden"/>
+                    <div class="col-md-3">
+                        <div class="col-md-4"><label style="transform: translate(0%, 50%);" for="">Producto</label></div>
+                        <div class="col-md-8">
+                            <select class="form-control" id="producto0" oninput="costoTotal('cantidad0','producto0','cantidadTotal0','nomProd0')">
+                                {% for i in productos %}
+                                    <option value="{{i.PrecioProvedor}}~~{{i.id}}">{{i.Producto}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
             
-            <label for="">Cantidad</label>
-            <input type="text" id="cantidad0" name="cant0" oninput="costoTotal('cantidad0','producto0','cantidadTotal0','nomProd0')">
-    
-            <label for="">CantidadTotal</label>
-            <input type="text" id="cantidadTotal0" name="cantTotal0">
-            
-            <div id="newElementId"></div>
-            
-            <div id="dynamicCheck">
-                <input type="button" value="Agregar Producto" onclick="createNewElement();"/>
-                <input type="button" value="Borrar Producto" onclick="deleteElement();"/>
+                    <input id="nomProd0" name="nomProd0" type="hidden"/>
+
+                    <div class="col-md-3">
+                            <div class="col-md-4"><label style="transform: translate(0%, 50%);" for="">Cantidad</label></div>
+                            <div class="col-md-8"><input class="form-control" type="text" id="cantidad0" name="cant0" oninput="costoTotal('cantidad0','producto0','cantidadTotal0','nomProd0')"></div>
+                    </div>
+
+                    <div class="col-md-3">
+                            <div class="col-md-6"><label style="transform: translate(0%, 50%);" for="">CantidadTotal</label></div>
+                            <div class="col-md-6"><input readonly class="form-control" type="text" id="cantidadTotal0" name="cantTotal0"></div>
+                    </div>
+                </div>
+                
+                <div class="col-md-2">
+                        <input class="btn btn-success" type="submit" value="Fin Transaccion">
+                </div>
+
+
+
+                <div id="newElementId"></div>
+                
+                <div id="dynamicCheck">
+                <div class="col-md-12">
+                        <div class=col-md-3>
+                            <input class="btn btn-primary btn-block" type="button" value="Agregar Producto" onclick="createNewElement();"/>
+                        </div>
+                        <div class=col-md-3>
+                            <input class="btn btn-danger btn-block" type="button" value="Borrar Producto" onclick="deleteElement();"/>
+                        </div>
+                        <div class="col-md-3 top"></div>
+                        <div class="col-md-3 top">
+                                <h3 class="col-md-5">Total: </h3>
+                                <h3 class="col-md-7" style="top: 100%;" id="valorTotal"></h3>
+                            <p id="valorTotal"></p>
+                        </div>
+                    <input id="cantProductos" name="cantProd" type="hidden"/>
+                </div>
             </div>
-            <input id="cantProductos" name="cantProd" type="hidden"/>
-            <input type="submit" value="Fin Transaccion">
-    </form>
+        </form>
+    </div>
+</div>
 
-    <p id="valorTotal"></p>
+
+
+
+
+
+
+
+
+
+
+
 
     <script>
             var mensajeTransaccion = "{{mensaje}}"
@@ -84,29 +182,44 @@
 
             function createNewElement() {
                 var html = `
-                    <div id="`+"newElement"+contClienteTransaccion+`">
-                    
-                    <label for="">Provedor</label>
-                    <select id="`+"provedor"+contClienteTransaccion+`" name="`+"prov"+contClienteTransaccion+`">
-                        {% for i in provedores %}
-                            <option value="{{i.id}}">{{i.Probedor}}</option>
-                        {% endfor %}
-                    </select>
+                    <div class="col-md-10">
+                        <div id="`+"newElement"+contClienteTransaccion+`">
+                            
+                            <div class="col-md-3">
+                                <div class="col-md-4"><label style="transform: translate(0%, 50%);" for="">Provedor</label></div>
+                                <div class="col-md-8">
+                                    <select class="form-control" id="`+"provedor"+contClienteTransaccion+`" name="`+"prov"+contClienteTransaccion+`">
+                                        {% for i in provedores %}
+                                            <option value="{{i.id}}">{{i.Probedor}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
 
-                    <label for="">Producto</label>
-                    <select id=`+`"`+"producto"+contClienteTransaccion+`" oninput="costoTotal('`+"cantidad"+contClienteTransaccion+`','`+"producto"+contClienteTransaccion+`','`+"cantidadTotal"+contClienteTransaccion+`','`+"nomProd"+contClienteTransaccion+`')">
-                        {% for i in productos %}
-                            <option value="{{i.PrecioProvedor}}~~{{i.id}}">{{i.Producto}}</option>
-                        {% endfor %}
-                    </select>
-                    
-                    <input id="nomProd`+contClienteTransaccion+`" name="nomProd`+contClienteTransaccion+`" type="hidden"/>
+                            <div class="col-md-3">
+                                <div class="col-md-4"><label style="transform: translate(0%, 50%);" for="">Producto</label></div>
+                                <div class="col-md-8">
+                                    <select class="form-control" id=`+`"`+"producto"+contClienteTransaccion+`" oninput="costoTotal('`+"cantidad"+contClienteTransaccion+`','`+"producto"+contClienteTransaccion+`','`+"cantidadTotal"+contClienteTransaccion+`','`+"nomProd"+contClienteTransaccion+`')">
+                                        {% for i in productos %}
+                                            <option value="{{i.PrecioProvedor}}~~{{i.id}}">{{i.Producto}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <input id="nomProd`+contClienteTransaccion+`" name="nomProd`+contClienteTransaccion+`" type="hidden"/>
 
-                    <label for="">Cantidad</label>
-                    <input type="text" id=`+`"`+"cantidad"+contClienteTransaccion+`" name="cant`+contClienteTransaccion+`" oninput="costoTotal('`+"cantidad"+contClienteTransaccion+`','`+"producto"+contClienteTransaccion+`','`+"cantidadTotal"+contClienteTransaccion+`','`+"nomProd"+contClienteTransaccion+`')">
+                            <div class="col-md-3">
+                                <div class="col-md-4"><label style="transform: translate(0%, 50%);" for="">Cantidad</label></div>
+                                <div class="col-md-8"><input class="form-control" type="text" id=`+`"`+"cantidad"+contClienteTransaccion+`" name="cant`+contClienteTransaccion+`" oninput="costoTotal('`+"cantidad"+contClienteTransaccion+`','`+"producto"+contClienteTransaccion+`','`+"cantidadTotal"+contClienteTransaccion+`','`+"nomProd"+contClienteTransaccion+`')"></div>
+                            </div>
 
-                    <label for="">CantidadTotal</label>
-                    <input type="text" id=`+`"`+"cantidadTotal"+contClienteTransaccion+`" name="cantTotal`+contClienteTransaccion+`"></div>`; 
+                            <div class="col-md-3">
+                                    <div class="col-md-6"><label style="transform: translate(0%, 50%);" for="">CantidadTotal</label></div>
+                                    <div class="col-md-6"><input readonly class="form-control" type="text" id=`+`"`+"cantidadTotal"+contClienteTransaccion+`" name="cantTotal`+contClienteTransaccion+`"></div>
+                            </div>
+                        </div>
+                    </div>`; 
 
                 var txtNewInputBox = document.createElement('div');
                 txtNewInputBox.innerHTML = html;

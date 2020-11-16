@@ -3,8 +3,91 @@
     <title>Home</title>
 </head>
 
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
 <body>
-    Pagina de HOME
+<div class="container-fluid">
+        <nav class="navbar navbar-inverse">
+                <div class="container">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-3">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand">Hola, {{request.user}}</a>
+                    </div>
+                
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="navbar-collapse-3">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="{% url 'home' %}">home</a></li>
+                        <li><a href="{% url 'clientes' %}">clientes</a></li>
+                        <li><a href="{% url 'provedores' %}">provedores</a></li>
+                        <li><a href="{% url 'ganancias' %}">Ganancias</a></li>
+                        <li>
+                        <a class="btn btn-default btn-outline btn-circle"  data-toggle="collapse" href="{% url 'logout' %}" aria-expanded="false" aria-controls="nav-collapse3">logout</a>
+                        </li>
+                    </ul>
+                    <div class="collapse nav navbar-nav nav-collapse" id="nav-collapse3">
+                        <form class="navbar-form navbar-right" role="logout">
+                        <a href="{% url 'logout' %}">logout</a>
+                        </form>
+                    </div>
+                    </div><!-- /.navbar-collapse -->
+                </div><!-- /.container -->
+                </nav><!-- /.navbar -->
+</div>
+
+<div class="container-fluid">
+        <h1>Nuestra marca</h1>
+</div>
+<br>
+<br>
+<br>
+<div class="container">
+        <div style="font-family: cursive;">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 style="text-align: center">Valores de la tienda</h2>
+            </div>
+            <br>
+            <br>
+            <br>
+            <div class="col-md-12">
+                <div class="col-md-3">
+                    <ol>
+                        <h3><li>Honestidad</li></h3>
+                        <h3><li>Un servicio excepcional</li></h3>
+                        <h3><li>Interacción amistosa con el cliente</li></h3>
+                        <h3><li>Atencion en el servicio</li></h3>
+                        <h3><li>Hacer las cosas en el momento</li></h3>
+                    </ol>
+                </div>
+                <div class="col-md-4">
+                    {% load static %}
+                    <img src="{% static 'ezquinaDataApp/img/esquinaApp.jpeg' %}"  width="500" height="300">
+                </div>
+                <div class="col-md-2"></div>
+                <div class="col-md-3">
+                        <ol start="6">
+                                <h3><li>Responsabilidad</li></h3>
+                                <h3><li>Puntualidad con tus tiempos</li></h3>
+                                <h3><li>Actitud positiva</li></h3>
+                                <h3><li>Integridad y empatia en tu servicio</li></h3>
+                                <h3><li>Compromiso</li></h3>
+                            </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--
     <nav>
         <span>Hola, {{request.user}}</span>
         <span><a href="{% url 'logout' %}">logout</a></span>
@@ -12,6 +95,7 @@
         <span><a href="{% url 'clientes' %}">clientes</a></span>
         <span><a href="{% url 'provedores' %}">provedores</a></span>
     </nav>
+-->
 </body>
 
 </html>

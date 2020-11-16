@@ -3,19 +3,90 @@
     <title>Login</title>
 </head>
 
+<!------ Include the above in your HEAD tag ---------->
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+<!------ Include the above in your HEAD tag ---------->
+
+
 <body>
-    Pagina de Login
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4"></div>
+        <aside class="col-sm-4">
+        <div class="card">
+            <article class="card-body">
+            <h4 class="card-title mb-4 mt-1">Login </h4>
 
-    <form action="" method="POST">
-        {% csrf_token %}
-        <input type="text" name="username">
+            <form action="" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                <label>Usuario</label>
+                <input class="form-control" type="text" name="username" placeholder="Usuario">
+                </div> 
+                <div class="form-group">
+                <label>Contraseña</label>
+                <input class="form-control" type="password" name="password" placeholder="Contraseña">
+                </div> 
+                <div class="form-group">
+                <input type="submit"  class="btn btn-primary btn-block" value="Login">
+                </div>
+                {% for message in messages %}
+                    <p id="messages">{{message}}</p>
+                {% endfor %}
+            </form>
+            </article>
+        </div>
+    </div>
+</div>
 
-        <input type="password" name="password">
-        <input type="submit" value="Login">
-        {% for message in messages %}
-            <p id="messages">{{message}}</p>
-        {% endfor %}
-    </form>
+
+<!--
+<div class="container">
+        <div class="row">
+            <aside class="col-sm-4">
+        <p>Login form style 1</p>
+        <div class="card">
+        <article class="card-body">
+        <a href="" class="float-right btn btn-outline-primary">Sign up</a>
+        <h4 class="card-title mb-4 mt-1">Sign in</h4>
+             <form>
+            <div class="form-group">
+                <label>Your email</label>
+                <input name="" class="form-control" placeholder="Email" type="email">
+            </div> 
+            <div class="form-group">
+                <a class="float-right" href="#">Forgot?</a>
+                <label>Your password</label>
+                <input class="form-control" placeholder="******" type="password">
+            </div>
+            <div class="form-group"> 
+            <div class="checkbox">
+              <label> <input type="checkbox"> Save password </label>
+            </div> 
+            </div>  
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-block"> Login  </button>
+            </div>                                                          
+        </form>
+        </article>
+        </div> 
+    </div>
+</div>
+        
+-->
+
+
 
 </body>
 

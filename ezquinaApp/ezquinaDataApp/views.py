@@ -80,7 +80,7 @@ def ganancias(request):
     if year != "2020":
         yearFront = 1
 
-    data = {"ventas":ventas, "perdidas":perdidas,"mes":mes, "year":yearFront, "totalVentas":totalVentas,"totalPerdidas":totalPerdidas}
+    data = {"ventas":ventas, "perdidas":perdidas,"mes":mes, "year":0, "totalVentas":totalVentas,"totalPerdidas":totalPerdidas}
 
     return render(request, "ganancias.html",data)
 
